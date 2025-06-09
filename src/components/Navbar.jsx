@@ -4,10 +4,10 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
-    const { user, logout } = use(AuthContext);
+    const { user, userSignOut } = use(AuthContext);
 
     const handleLogout = () => {
-        logout()
+        userSignOut()
             .then(() => console.log("Logged out"))
             .catch((err) => console.error(err));
     };
@@ -49,7 +49,7 @@ const Navbar = () => {
 
             <div className="navbar-end">
                 {!user ? (
-                    <Link to="/auth/login" className="btn btn-outline btn-sm">
+                    <Link to="/auth/login" className="btn btn-primary">
                         Login
                     </Link>
                 ) : (
@@ -59,12 +59,7 @@ const Navbar = () => {
                             className="btn btn-ghost btn-circle avatar"
                         >
                             <div className="w-10 rounded-full">
-                                <img
-                                    src={
-                                        user.photoURL ||
-                                        "https://i.ibb.co/2kR9vYj/default.png"
-                                    }
-                                />
+                                <img src={user?.photoURL} />
                             </div>
                         </div>
                         <ul
@@ -82,7 +77,7 @@ const Navbar = () => {
                             <li>
                                 <button
                                     onClick={handleLogout}
-                                    className="text-red-500 flex items-center gap-2"
+                                    className="text-error flex items-center gap-2"
                                 >
                                     <FaSignOutAlt /> Logout
                                 </button>
@@ -119,7 +114,7 @@ const Navbar = () => {
                             <li>
                                 <button
                                     onClick={handleLogout}
-                                    className="text-red-500 flex items-center gap-2"
+                                    className="text-error flex items-center gap-2"
                                 >
                                     <FaSignOutAlt /> Logout
                                 </button>
