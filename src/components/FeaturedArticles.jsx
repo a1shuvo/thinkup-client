@@ -5,8 +5,7 @@ const FeaturedArticles = () => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        axios
-            .get("http://localhost:3000/articles")
+        axios(`${import.meta.env.VITE_BASE_API_URL}/articles`)
             .then((res) => {
                 setArticles(res.data.slice(0, 6));
             })
