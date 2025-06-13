@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
+import Loading from "../components/Loading";
 import AuthLayout from "../layouts/AuthLayout";
 import HomeLayout from "../layouts/HomeLayout";
 import AllArticles from "../pages/AllArticles";
@@ -6,6 +7,7 @@ import ForgotPassword from "../pages/Auth/ForgotPassword";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Home from "../pages/Home";
+import NotFound from "../pages/NotFound";
 import { articlesLoader } from "./articlesLoader";
 
 const router = createBrowserRouter([
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
             {
                 path: "/articles",
                 loader: articlesLoader,
-                hydrateFallbackElement: <p>Loading...</p>,
+                HydrateFallback: Loading,
                 Component: AllArticles,
             },
         ],
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
                 Component: ForgotPassword,
             },
         ],
+    },
+    {
+        path: "*",
+        Component: NotFound,
     },
 ]);
 
