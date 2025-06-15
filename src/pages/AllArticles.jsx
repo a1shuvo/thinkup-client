@@ -19,7 +19,7 @@ const AllArticles = () => {
                             key={article._id}
                             className="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition"
                         >
-                            <h2 className="text-xl font-semibold text-blue-700 mb-2">
+                            <h2 className="text-xl font-semibold text-primary mb-2">
                                 <Link to={`/article/${article._id}`}>
                                     {article.title}
                                 </Link>

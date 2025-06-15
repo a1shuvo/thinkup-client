@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const FeaturedArticles = () => {
     const [articles, setArticles] = useState([]);
@@ -49,9 +50,11 @@ const FeaturedArticles = () => {
                                 </div>
                             </div>
                             <div className="card-actions justify-end mt-4">
-                                <button className="btn btn-sm btn-outline btn-primary">
-                                    Read More
-                                </button>
+                                <Link to={`/article/${article._id}`}>
+                                    <button className="btn btn-sm btn-outline btn-primary">
+                                        Read More
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>

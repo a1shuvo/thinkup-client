@@ -1,8 +1,10 @@
+import axios from "axios";
 import { createBrowserRouter } from "react-router";
 import Loading from "../components/Loading";
 import AuthLayout from "../layouts/AuthLayout";
 import HomeLayout from "../layouts/HomeLayout";
 import AllArticles from "../pages/AllArticles";
+import ArticleDetails from "../pages/ArticleDetails";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
@@ -24,6 +26,19 @@ const router = createBrowserRouter([
                 loader: articlesLoader,
                 HydrateFallback: Loading,
                 Component: AllArticles,
+            },
+            {
+                path: "article/:id",
+                Component: ArticleDetails,
+                HydrateFallback: Loading,
+                loader: async ({ params }) => {
+                    const res = await axios(
+                        `${import.meta.env.VITE_BASE_API_URL}/article/${
+                            params.id
+                        }`
+                    );
+                    return res.data;
+                },
             },
         ],
     },
