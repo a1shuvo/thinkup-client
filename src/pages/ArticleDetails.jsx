@@ -1,4 +1,5 @@
 import axios from "axios";
+import DOMPurify from "dompurify";
 import { use, useEffect, useState } from "react";
 import { BiCommentDetail, BiLogIn } from "react-icons/bi";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -120,11 +121,12 @@ const ArticleDetails = () => {
                         </span>
                     </div>
 
-                    <div className="prose max-w-none dark:prose-invert">
-                        {content.split("\n").map((para, idx) => (
-                            <p key={idx}>{para}</p>
-                        ))}
-                    </div>
+                    <div
+                        className="prose max-w-none dark:prose-invert"
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(content),
+                        }}
+                    ></div>
 
                     <div className="flex flex-wrap gap-2">
                         {tags.map((tag, idx) => (

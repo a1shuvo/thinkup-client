@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createBrowserRouter } from "react-router";
 import Loading from "../components/Loading";
+import PrivateRoute from "../contexts/PrivateRoute";
 import AuthLayout from "../layouts/AuthLayout";
 import HomeLayout from "../layouts/HomeLayout";
 import AllArticles from "../pages/AllArticles";
@@ -10,6 +11,7 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
+import PostArticle from "../pages/PostArticle";
 import { articlesLoader } from "./articlesLoader";
 
 const router = createBrowserRouter([
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
                 Component: AllArticles,
             },
             {
-                path: "article/:id",
+                path: "/article/:id",
                 Component: ArticleDetails,
                 HydrateFallback: Loading,
                 loader: async ({ params }) => {
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
                     );
                     return res.data;
                 },
+            },
+            {
+                path: "/post-article",
+                element: (
+                    <PrivateRoute>
+                        <PostArticle></PostArticle>
+                    </PrivateRoute>
+                ),
             },
         ],
     },
