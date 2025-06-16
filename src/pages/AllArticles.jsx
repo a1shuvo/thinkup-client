@@ -6,35 +6,66 @@ const AllArticles = () => {
     const category = searchParams.get("category");
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-6">
-            <h1 className="text-3xl font-bold text-center mb-6">
+        <div className="max-w-7xl mx-auto px-4 py-10">
+            <h1 className="text-3xl md:text-4xl font-bold text-center text-primary mb-10">
                 {category ? `Articles in "${category}"` : "All Articles"}
             </h1>
+
             {articles.length === 0 ? (
                 <p className="text-center text-gray-500">No articles found.</p>
             ) : (
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {articles.map((article) => (
-                        <div
-                            key={article._id}
-                            className="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition"
-                        >
-                            <h2 className="text-xl font-semibold text-primary mb-2">
+                        <div className="card bg-base-100 shadow-xl hover:shadow-2xl border border-base-200">
+                            {article.article_img && (
+                                <figure>
+                                    <img
+                                        src={article.article_img}
+                                        alt={article.title}
+                                        className="h-52 w-full object-cover rounded-t-lg"
+                                    />
+                                </figure>
+                            )}
+                            <div className="card-body space-y-2">
                                 <Link to={`/article/${article._id}`}>
-                                    {article.title}
+                                    <h3 className="card-title text-lg text-primary">
+                                        {article.title}
+                                    </h3>
                                 </Link>
-                            </h2>
-                            <p className="text-sm text-gray-600 mb-2">
-                                Category:{" "}
-                                <span className="font-medium">
-                                    {article.category}
-                                </span>
-                            </p>
-                            <p className="text-gray-700">
-                                {article.description?.length > 100
-                                    ? article.description.slice(0, 100) + "..."
-                                    : article.description}
-                            </p>
+
+                                <p className="text-sm text-gray-600 line-clamp-3">
+                                    {article.content.replace(/<[^>]+>/g, "")}
+                                </p>
+
+                                <div className="flex items-center gap-3 mt-2">
+                                    <div className="avatar">
+                                        <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                            <img
+                                                src={article.author_photo}
+                                                alt={article.author_name}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium">
+                                            {article.author_name || "Unknown"}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {new Date(
+                                                article.createdAt
+                                            ).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="card-actions justify-end mt-2">
+                                    <Link to={`/article/${article._id}`}>
+                                        <button className="btn btn-sm btn-outline btn-primary">
+                                            Read More
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>

@@ -105,7 +105,7 @@ const UpdateArticleModal = ({ article, setArticles, articles }) => {
                             onChange={handleChange}
                         />
                         <input
-                            type="text"
+                            type="url"
                             name="article_img"
                             className="input input-bordered w-full"
                             placeholder="Thumbnail Image URL"
