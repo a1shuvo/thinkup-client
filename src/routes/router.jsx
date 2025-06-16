@@ -10,6 +10,7 @@ import ForgotPassword from "../pages/Auth/ForgotPassword";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Home from "../pages/Home";
+import MyArticles from "../pages/MyArticles";
 import NotFound from "../pages/NotFound";
 import PostArticle from "../pages/PostArticle";
 import { articlesLoader } from "./articlesLoader";
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateRoute>
                         <PostArticle></PostArticle>
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "/my-articles",
+                element: (
+                    <PrivateRoute>
+                        <MyArticles></MyArticles>
                     </PrivateRoute>
                 ),
             },
