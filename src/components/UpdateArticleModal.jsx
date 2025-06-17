@@ -1,17 +1,17 @@
 import axios from "axios";
 import JoditEditor from "jodit-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 
-const UpdateArticleModal = ({ article, setArticles, articles }) => {
+const UpdateArticleModal = ({
+    article,
+    setArticles,
+    articles,
+    formData,
+    setFormData,
+    closeModal,
+}) => {
     const editor = useRef(null);
-    const [formData, setFormData] = useState({
-        title: "",
-        category: "",
-        tags: "",
-        article_img: "",
-        content: "",
-    });
 
     useEffect(() => {
         setFormData({
@@ -21,7 +21,7 @@ const UpdateArticleModal = ({ article, setArticles, articles }) => {
             article_img: article.article_img,
             content: article.content,
         });
-    }, [article]);
+    }, [article, setFormData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,7 +54,7 @@ const UpdateArticleModal = ({ article, setArticles, articles }) => {
             );
             setArticles(updatedArticles);
 
-            document.getElementById("update_modal").close();
+            closeModal();
             Swal.fire({
                 icon: "success",
                 title: "Article updated successfully!",
@@ -138,9 +138,7 @@ const UpdateArticleModal = ({ article, setArticles, articles }) => {
                         <button
                             type="button"
                             className="btn btn-outline"
-                            onClick={() =>
-                                document.getElementById("update_modal").close()
-                            }
+                            onClick={closeModal}
                         >
                             Cancel
                         </button>

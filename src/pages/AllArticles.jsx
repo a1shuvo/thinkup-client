@@ -9,7 +9,7 @@ const AllArticles = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-center text-primary mb-10">
+            <h1 className="text-2xl md:text-3xl font-bold text-center text-primary mb-10">
                 {category ? `Articles in "${category}"` : "All Articles"}
             </h1>
 

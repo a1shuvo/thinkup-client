@@ -91,7 +91,7 @@ const PostArticle = () => {
     return (
         <div className="max-w-5xl mx-auto px-4 py-10">
             <div className="bg-base-100 shadow-lg p-8 rounded-2xl">
-                <h2 className="text-3xl font-bold text-center text-primary mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-center text-primary mb-6">
                     Publish New Article
                 </h2>
 

@@ -45,7 +45,7 @@ const HeroBanner = () => {
                         whileTap={{ scale: 0.95 }}
                     >
                         <Link to="/articles">
-                            <button className="btn btn-primary rounded-full px-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                            <button className="btn btn-primary rounded-full px-6 shadow-lg hover:shadow-xl transition-all duration-300">
                                 Explore Articles
                             </button>
                         </Link>

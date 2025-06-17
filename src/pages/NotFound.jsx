@@ -10,7 +10,7 @@ const NotFound = () => {
             <div className="w-full max-w-md">
                 <Lottie animationData={notFoundAnim} loop={true} />
             </div>
-            <h1 className="text-4xl font-bold text-primary mt-4">
+            <h1 className="text-2xl md:text-3xl font-bold text-primary mt-4">
                 Lost in Knowledge?
             </h1>
             <p className="text-base-content mt-2">

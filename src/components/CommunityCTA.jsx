@@ -7,7 +7,7 @@ const CommunityCTA = () => {
             <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-8">
                 {/* Text Content */}
                 <div className="space-y-5 text-center md:text-left">
-                    <h2 className="text-4xl font-bold text-primary">
+                    <h2 className="text-2xl md:text-3xl font-bold text-primary">
                         Be a Part of the Knowledge Movement
                     </h2>
                     <p className="text-base-content text-lg">

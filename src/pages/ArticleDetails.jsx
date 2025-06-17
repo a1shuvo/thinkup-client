@@ -80,6 +80,7 @@ const ArticleDetails = () => {
             setComments([newComment, ...comments]);
             setCommentText("");
             Swal.fire({
+                toast: true,
                 position: "top-end",
                 icon: "success",
                 title: "Comment posted successfully!",
@@ -107,7 +108,7 @@ const ArticleDetails = () => {
                     className="w-full h-84 object-cover"
                 />
                 <div className="p-6 space-y-4">
-                    <h1 className="text-3xl font-bold text-primary">{title}</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-primary">{title}</h1>
                     <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                         <div className="flex items-center gap-2">
                             <img

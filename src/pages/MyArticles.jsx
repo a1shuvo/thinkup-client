@@ -12,6 +12,7 @@ const MyArticles = () => {
     const { user } = useContext(AuthContext);
     const [articles, setArticles] = useState([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
+    const [formData, setFormData] = useState(null);
 
     useEffect(() => {
         if (user?.email) {
@@ -61,6 +62,13 @@ const MyArticles = () => {
 
     const handleUpdate = (article) => {
         setSelectedArticle(article);
+        setFormData({
+            title: article.title,
+            category: article.category,
+            tags: article.tags.join(", "),
+            article_img: article.article_img,
+            content: article.content,
+        });
     };
 
     useEffect(() => {
@@ -74,7 +82,7 @@ const MyArticles = () => {
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
-            <h2 className="text-3xl font-bold mb-6 text-primary">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-primary">
                 My Articles
             </h2>
             {articles.length === 0 ? (
@@ -135,6 +143,12 @@ const MyArticles = () => {
                     article={selectedArticle}
                     setArticles={setArticles}
                     articles={articles}
+                    formData={formData}
+                    setFormData={setFormData}
+                    closeModal={() => {
+                        setSelectedArticle(null);
+                        setFormData(null);
+                    }}
                 />
             )}
         </div>

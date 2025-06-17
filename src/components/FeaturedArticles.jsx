@@ -18,7 +18,7 @@ const FeaturedArticles = () => {
 
     return (
         <section className="max-w-7xl mx-auto px-4 py-12">
-            <h2 className="text-3xl font-bold text-center mb-10 text-primary">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-primary">
                 Featured Articles
             </h2>
 
