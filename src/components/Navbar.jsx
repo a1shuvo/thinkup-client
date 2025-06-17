@@ -2,9 +2,11 @@ import { use } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
     const { user, userSignOut } = use(AuthContext);
+    // const { theme } = use(ThemeContext);
 
     const handleLogout = () => {
         userSignOut()
@@ -37,7 +39,7 @@ const Navbar = () => {
         <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-50">
             <div className="navbar-start">
                 <Link to="/" className="text-xl font-bold">
-                    📚 ThinkUp
+                    ThinkUp
                 </Link>
             </div>
 
@@ -48,6 +50,9 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-end">
+                <div>
+                    <ThemeToggle />
+                </div>
                 {!user ? (
                     <Link to="/auth/login" className="btn btn-primary">
                         Login

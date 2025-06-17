@@ -42,6 +42,7 @@ const router = createBrowserRouter([
                     );
                     return res.data;
                 },
+                errorElement: <NotFound></NotFound>,
             },
             {
                 path: "/post-article",
@@ -84,7 +85,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "*",
+        path: "/*",
         Component: NotFound,
     },
 ]);

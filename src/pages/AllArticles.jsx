@@ -12,11 +12,14 @@ const AllArticles = () => {
             </h1>
 
             {articles.length === 0 ? (
-                <p className="text-center text-gray-500">No articles found.</p>
+                <p className="text-center text-accent">No articles found.</p>
             ) : (
                 <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {articles.map((article) => (
-                        <div className="card bg-base-100 shadow-xl hover:shadow-2xl border border-base-200">
+                        <div
+                            key={article._id}
+                            className="card bg-base-100 shadow-xl hover:shadow-2xl border border-base-200"
+                        >
                             {article.article_img && (
                                 <figure>
                                     <img
@@ -33,8 +36,11 @@ const AllArticles = () => {
                                     </h3>
                                 </Link>
 
-                                <p className="text-sm text-gray-600 line-clamp-3">
-                                    {article.content.replace(/<[^>]+>/g, "")}
+                                <p className="text-sm text-accent">
+                                    {article.content
+                                        .replace(/<[^>]+>/g, "")
+                                        .slice(0, 150)}
+                                    ...
                                 </p>
 
                                 <div className="flex items-center gap-3 mt-2">

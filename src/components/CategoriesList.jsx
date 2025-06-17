@@ -14,7 +14,7 @@ const CategoriesList = () => {
             });
     }, []);
     return (
-        <section className="max-w-7xl mx-auto px-4 py-12">
+        <section className="max-w-7xl mx-auto px-4 py-12 bg-base-300">
             <h2 className="text-3xl font-bold text-center mb-10 text-primary">
                 Explore by Category
             </h2>

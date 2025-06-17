@@ -46,8 +46,11 @@ const FeaturedArticles = () => {
                                 </h3>
                             </Link>
 
-                            <p className="text-sm text-gray-600 line-clamp-3">
-                                {article.content.replace(/<[^>]+>/g, "")}
+                            <p className="text-sm text-accent">
+                                {article.content
+                                    .replace(/<[^>]+>/g, "")
+                                    .slice(0, 150)}
+                                ...
                             </p>
 
                             <div className="flex items-center gap-3 mt-2">

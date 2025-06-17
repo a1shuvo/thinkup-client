@@ -120,6 +120,9 @@ const PostArticle = () => {
                                 readonly: false,
                                 placeholder:
                                     "Write your article content here...",
+                                style: {
+                                    color: "#000",
+                                },
                             }}
                         />
                     </div>

@@ -4,9 +4,9 @@ import { Link } from "react-router";
 const Footer = () => {
     return (
         <footer className="bg-base-300 text-base-content">
-            <div className="footer px-4 py-10 flex justify-between max-w-7xl mx-auto">
+            <div className="px-4 py-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-10 text-center md:text-left">
                 {/* Brand */}
-                <div>
+                <div className="flex flex-col items-center md:items-start">
                     <Link to="/" className="text-2xl font-bold text-primary">
                         ThinkUp
                     </Link>
@@ -17,7 +17,7 @@ const Footer = () => {
                 </div>
 
                 {/* Navigation */}
-                <div>
+                <div className="flex flex-col items-center md:items-start">
                     <span className="footer-title">Links</span>
                     <Link to="/about" className="link link-hover">
                         About Us
@@ -30,10 +30,10 @@ const Footer = () => {
                     </Link>
                 </div>
 
-                {/* Social */}
-                <div>
+                {/* Social Media */}
+                <div className="flex flex-col items-center md:items-start">
                     <span className="footer-title">Follow Us</span>
-                    <div className="flex space-x-4 text-xl">
+                    <div className="flex gap-4 text-xl mt-2">
                         <a
                             href="https://facebook.com"
                             target="_blank"
