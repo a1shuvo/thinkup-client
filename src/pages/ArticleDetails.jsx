@@ -6,8 +6,10 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 const ArticleDetails = () => {
+    usePageTitle("Article Details");
     const article = useLoaderData();
     const {
         _id,

@@ -1,8 +1,10 @@
 import Lottie from "lottie-react";
 import { Link } from "react-router";
-import notFoundAnim from "../assets/404.json"; // Or replace with your own JSON animation
+import notFoundAnim from "../assets/404.json";
+import usePageTitle from "../hooks/usePageTitle";
 
 const NotFound = () => {
+    usePageTitle("Not Found");
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-base-200 text-center p-4">
             <div className="w-full max-w-md">

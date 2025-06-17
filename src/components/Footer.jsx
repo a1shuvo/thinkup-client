@@ -1,5 +1,6 @@
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router";
+import logo from "/logo.png";
 
 const Footer = () => {
     return (
@@ -7,8 +8,12 @@ const Footer = () => {
             <div className="px-4 py-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-10 text-center md:text-left">
                 {/* Brand */}
                 <div className="flex flex-col items-center md:items-start">
-                    <Link to="/" className="text-2xl font-bold text-primary">
-                        ThinkUp
+                    <Link to="/">
+                        <img
+                            className="w-30 md:w-36"
+                            src={logo}
+                            alt="ThinkUp Logo"
+                        />
                     </Link>
                     <p className="text-sm mt-2 max-w-xs">
                         Empowering minds through shared knowledge. Learn. Grow.

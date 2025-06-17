@@ -5,8 +5,10 @@ import { Link } from "react-router";
 import Swal from "sweetalert2";
 import UpdateArticleModal from "../components/UpdateArticleModal";
 import { AuthContext } from "../contexts/AuthContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 const MyArticles = () => {
+    usePageTitle("My Articles");
     const { user } = useContext(AuthContext);
     const [articles, setArticles] = useState([]);
     const [selectedArticle, setSelectedArticle] = useState(null);

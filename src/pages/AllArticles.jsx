@@ -1,6 +1,8 @@
 import { Link, useLoaderData, useSearchParams } from "react-router";
+import usePageTitle from "../hooks/usePageTitle";
 
 const AllArticles = () => {
+    usePageTitle("All Articles");
     const articles = useLoaderData();
     const [searchParams] = useSearchParams();
     const category = searchParams.get("category");

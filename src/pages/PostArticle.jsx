@@ -5,8 +5,10 @@ import { FaCalendarAlt, FaRegImage, FaTags, FaUser } from "react-icons/fa";
 import { MdCategory, MdEmail } from "react-icons/md";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 const PostArticle = () => {
+    usePageTitle("Post Article");
     const { user } = use(AuthContext);
     const editor = useRef(null);
 

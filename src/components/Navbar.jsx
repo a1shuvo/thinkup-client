@@ -2,11 +2,14 @@ import { use } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
+import { ThemeContext } from "../contexts/ThemeContext";
 import ThemeToggle from "./ThemeToggle";
+import logo from "/logo.png";
+import logoDark from "/logo_white.png";
 
 const Navbar = () => {
     const { user, userSignOut } = use(AuthContext);
-    // const { theme } = use(ThemeContext);
+    const { theme } = use(ThemeContext);
 
     const handleLogout = () => {
         userSignOut()
@@ -38,8 +41,12 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100 shadow-md px-4 sticky top-0 z-50">
             <div className="navbar-start">
-                <Link to="/" className="text-xl font-bold">
-                    ThinkUp
+                <Link to="/">
+                    <img
+                        className="w-30 md:w-40"
+                        src={theme === "light" ? logo : logoDark}
+                        alt="ThinkUp Logo"
+                    />
                 </Link>
             </div>
 
@@ -90,46 +97,46 @@ const Navbar = () => {
                         </ul>
                     </div>
                 )}
-            </div>
 
-            {/* Mobile Menu */}
-            <div className="lg:hidden navbar-end">
-                <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <svg
-                            className="h-5 w-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
+                {/* Mobile Menu */}
+                <div className="md:hidden">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                            <svg
+                                className="h-6 w-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
+                            </svg>
+                        </label>
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                         >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 8h16M4 16h16"
-                            />
-                        </svg>
-                    </label>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-                    >
-                        {navLinks}
-                        {user ? (
-                            <li>
-                                <button
-                                    onClick={handleLogout}
-                                    className="text-error flex items-center gap-2"
-                                >
-                                    <FaSignOutAlt /> Logout
-                                </button>
-                            </li>
-                        ) : (
-                            <li>
-                                <Link to="/auth/login">Login</Link>
-                            </li>
-                        )}
-                    </ul>
+                            {navLinks}
+                            {user ? (
+                                <li>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="text-error flex items-center gap-2"
+                                    >
+                                        <FaSignOutAlt /> Logout
+                                    </button>
+                                </li>
+                            ) : (
+                                <li>
+                                    <Link to="/auth/login">Login</Link>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
