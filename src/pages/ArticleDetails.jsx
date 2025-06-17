@@ -1,4 +1,3 @@
-import axios from "axios";
 import DOMPurify from "dompurify";
 import { use, useEffect, useState } from "react";
 import { BiCommentDetail, BiLogIn } from "react-icons/bi";
@@ -6,10 +5,12 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import usePageTitle from "../hooks/usePageTitle";
 
 const ArticleDetails = () => {
     usePageTitle("Article Details");
+    const axiosSecure = useAxiosSecure();
     const article = useLoaderData();
     const {
         _id,
@@ -35,19 +36,17 @@ const ArticleDetails = () => {
     }, [article, user]);
 
     useEffect(() => {
-        axios(`${import.meta.env.VITE_BASE_API_URL}/comments/${_id}`)
+        axiosSecure(`/comments/${_id}`)
             .then((res) => setComments(res.data))
             .catch((err) => console.error("Comments load failed:", err));
-    }, [_id]);
+    }, [_id, axiosSecure]);
 
     const handleToggleLike = async () => {
         if (!user) return Swal.fire("Please login to like");
 
         try {
-            const res = await axios.patch(
-                `${import.meta.env.VITE_BASE_API_URL}/article/like/${
-                    article._id
-                }`,
+            const res = await axiosSecure.patch(
+                `/article/like/${article._id}`,
                 {
                     userId: user.uid,
                 }
@@ -73,10 +72,7 @@ const ArticleDetails = () => {
         };
 
         try {
-            await axios.post(
-                `${import.meta.env.VITE_BASE_API_URL}/comments`,
-                newComment
-            );
+            await axiosSecure.post(`/comments`, newComment);
             setComments([newComment, ...comments]);
             setCommentText("");
             Swal.fire({
@@ -108,7 +104,9 @@ const ArticleDetails = () => {
                     className="w-full h-84 object-cover"
                 />
                 <div className="p-6 space-y-4">
-                    <h1 className="text-2xl md:text-3xl font-bold text-primary">{title}</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-primary">
+                        {title}
+                    </h1>
                     <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                         <div className="flex items-center gap-2">
                             <img

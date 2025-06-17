@@ -1,7 +1,7 @@
-import axios from "axios";
 import JoditEditor from "jodit-react";
 import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateArticleModal = ({
     article,
@@ -11,6 +11,7 @@ const UpdateArticleModal = ({
     setFormData,
     closeModal,
 }) => {
+    const axiosSecure = useAxiosSecure();
     const editor = useRef(null);
 
     useEffect(() => {
@@ -44,10 +45,7 @@ const UpdateArticleModal = ({
         };
 
         try {
-            await axios.put(
-                `${import.meta.env.VITE_BASE_API_URL}/article/${article._id}`,
-                updated
-            );
+            await axiosSecure.put(`/article/${article._id}`, updated);
 
             const updatedArticles = articles.map((a) =>
                 a._id === article._id ? { ...updated, _id: article._id } : a

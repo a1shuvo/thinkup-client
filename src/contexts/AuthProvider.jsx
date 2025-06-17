@@ -1,6 +1,7 @@
 import {
     createUserWithEmailAndPassword,
     getAuth,
+    getIdToken,
     GoogleAuthProvider,
     onAuthStateChanged,
     sendPasswordResetEmail,
@@ -17,6 +18,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [accessToken, setAccessToken] = useState(null);
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -49,8 +51,14 @@ const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
+            if (currentUser) {
+                const token = await getIdToken(currentUser);
+                setAccessToken(token);
+            } else {
+                setAccessToken(null);
+            }
             setLoading(false);
         });
         return () => {
@@ -60,6 +68,7 @@ const AuthProvider = ({ children }) => {
 
     const authData = {
         user,
+        accessToken,
         setUser,
         createUser,
         updateUser,

@@ -1,12 +1,39 @@
-# React + Vite
+# ThinkUP - Knowledge Sharing Platform (Client Side)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ThinkUP is a full-featured knowledge-sharing platform where users can post articles, engage in discussions, and share knowledge with the community.
 
-Currently, two official plugins are available:
+> 🚀 This is the **client-side** (frontend) repository of the ThinkUP project.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## Expanding the ESLint configuration
+👉 [Visit ThinkUp Live]()
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🖼️ Features
+
+-   🔐 Firebase Authentication (Email/Password + Google Login)
+-   📄 Create, Read, Update, Delete (CRUD) functionality for articles
+-   🔍 Filter articles by category
+-   💬 Comment system with real-time count
+-   ❤️ Like system
+-   🔒 Protected routes (private pages)
+-   🌗 Dark & Light Mode toggle (DaisyUI theme)
+-   🔥 Responsive, clean, and modern UI using TailwindCSS + DaisyUI
+-   🧭 Dynamic routing with React Router
+-   ⚙️ Axios Secure instance with JWT authentication
+-   🚫 404 Custom Error Page
+-   ⚠️ SweetAlert2 integration for user-friendly confirmation dialogs
+
+---
+
+## 🛠️ Tech Stack
+
+-   **React.js** (Vite)
+-   **Tailwind CSS**
+-   **DaisyUI**
+-   **React Router DOM**
+-   **Firebase Authentication**
+-   **Axios**
+-   **SweetAlert2**
+-   **React Icons**

@@ -1,30 +1,28 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaEdit, FaEye, FaHeart, FaTrash } from "react-icons/fa";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import UpdateArticleModal from "../components/UpdateArticleModal";
-import { AuthContext } from "../contexts/AuthContext";
+import useApplicationApi from "../hooks/useApplicationApi";
+import useAuth from "../hooks/useAuth";
 import usePageTitle from "../hooks/usePageTitle";
 
 const MyArticles = () => {
     usePageTitle("My Articles");
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const [articles, setArticles] = useState([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [formData, setFormData] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const { myArticlesPromise, deleteArticle } = useApplicationApi();
 
     useEffect(() => {
-        if (user?.email) {
-            axios(
-                `${import.meta.env.VITE_BASE_API_URL}/articles?author_id=${
-                    user.uid
-                }`
-            )
-                .then((res) => setArticles(res.data))
+        if (user?.uid) {
+            myArticlesPromise(user.uid)
+                .then((data) => setArticles(data))
                 .catch((err) => console.error(err));
         }
-    }, [user]);
+    }, [user, myArticlesPromise]);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -38,9 +36,7 @@ const MyArticles = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(
-                        `${import.meta.env.VITE_BASE_API_URL}/article/${id}`
-                    );
+                    await deleteArticle(id);
                     setArticles(
                         articles.filter((article) => article._id !== id)
                     );
@@ -80,13 +76,45 @@ const MyArticles = () => {
         }
     }, [selectedArticle]);
 
+    // Extract unique categories
+    const categories = [
+        "All",
+        ...new Set(articles.map((article) => article.category)),
+    ];
+
+    // Filtered articles
+    const filteredArticles =
+        selectedCategory === "All"
+            ? articles
+            : articles.filter(
+                  (article) => article.category === selectedCategory
+              );
+
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-primary">
                 My Articles
             </h2>
-            {articles.length === 0 ? (
-                <p className="text-center">No articles posted yet.</p>
+
+            {/* Category Filter */}
+            <div className="mb-4">
+                <select
+                    className="select select-bordered w-full max-w-xs"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    {categories.map((cat, idx) => (
+                        <option key={idx} value={cat}>
+                            {cat}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            {filteredArticles.length === 0 ? (
+                <p className="text-center">
+                    No articles found for this category.
+                </p>
             ) : (
                 <div className="overflow-x-auto">
                     <table className="table table-zebra w-full">
@@ -95,11 +123,13 @@ const MyArticles = () => {
                                 <th>Title</th>
                                 <th>Category</th>
                                 <th>Date</th>
+                                <th>Likes</th>
+                                {/* <th>Comments</th> */}
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {articles.map((article) => (
+                            {filteredArticles.map((article) => (
                                 <tr key={article._id}>
                                     <td>{article.title}</td>
                                     <td>{article.category}</td>
@@ -108,7 +138,15 @@ const MyArticles = () => {
                                             article.createdAt
                                         ).toDateString()}
                                     </td>
-                                    <td className="flex gap-3">
+                                    <td>
+                                        <FaHeart className="inline mr-1 text-error" />{" "}
+                                        {article.totalLikes || 0}
+                                    </td>
+                                    {/* <td>
+                                        <FaComment className="inline mr-1 text-primary" />{" "}
+                                        {article.commentsCount || 0}
+                                    </td> */}
+                                    <td className="flex gap-2">
                                         <Link to={`/article/${article._id}`}>
                                             <button className="btn btn-sm btn-outline btn-primary">
                                                 <FaEye />
@@ -137,6 +175,7 @@ const MyArticles = () => {
                     </table>
                 </div>
             )}
+
             {/* Update Modal */}
             {selectedArticle && (
                 <UpdateArticleModal

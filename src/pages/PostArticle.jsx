@@ -6,9 +6,11 @@ import { MdCategory, MdEmail } from "react-icons/md";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
 import usePageTitle from "../hooks/usePageTitle";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const PostArticle = () => {
     usePageTitle("Post Article");
+    const axiosSecure = useAxiosSecure();
     const { user } = use(AuthContext);
     const editor = useRef(null);
 
@@ -59,7 +61,7 @@ const PostArticle = () => {
         };
 
         try {
-            const res = await axios.post(
+            const res = await axiosSecure.post(
                 `${import.meta.env.VITE_BASE_API_URL}/article`,
                 newArticle
             );

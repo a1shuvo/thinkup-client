@@ -1,6 +1,7 @@
 import { use } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
+import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
 import { ThemeContext } from "../contexts/ThemeContext";
 import ThemeToggle from "./ThemeToggle";
@@ -13,7 +14,16 @@ const Navbar = () => {
 
     const handleLogout = () => {
         userSignOut()
-            .then(() => console.log("Logged out"))
+            .then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Logged out successful!",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            })
             .catch((err) => console.error(err));
     };
 
