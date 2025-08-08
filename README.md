@@ -6,7 +6,7 @@ ThinkUP is a full-featured knowledge-sharing platform where users can post artic
 
 ## 🌐 Live Demo
 
-👉 [Visit ThinkUp Live]()
+👉 [Visit ThinkUp Live](https://think-up-a1shuvo.web.app/)
 
 ---
 
