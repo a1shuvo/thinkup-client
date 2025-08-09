@@ -2,6 +2,7 @@ import CategoriesList from "../components/CategoriesList";
 import CommunityCTA from "../components/CommunityCTA";
 import FeaturedArticles from "../components/FeaturedArticles";
 import HeroBanner from "../components/HeroBanner";
+import Testimonials from "../components/Testimonials";
 import TopContributors from "../components/TopContributors";
 import usePageTitle from "../hooks/usePageTitle";
 
@@ -13,6 +14,7 @@ const Home = () => {
       <FeaturedArticles></FeaturedArticles>
       <CategoriesList></CategoriesList>
       <TopContributors></TopContributors>
+      <Testimonials></Testimonials>
       <CommunityCTA></CommunityCTA>
     </div>
   );
