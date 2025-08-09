@@ -7,23 +7,81 @@ import useApplicationApi from "../hooks/useApplicationApi";
 import useAuth from "../hooks/useAuth";
 import usePageTitle from "../hooks/usePageTitle";
 
+const ShimmerRow = () => (
+  <tr>
+    {Array(5)
+      .fill(0)
+      .map((_, i) => (
+        <td key={i} className="py-4">
+          <div className="h-6 bg-gray-300 rounded animate-pulse w-full max-w-[150px] mx-auto"></div>
+        </td>
+      ))}
+  </tr>
+);
+
 const MyArticles = () => {
   usePageTitle("My Articles");
   const { user } = useAuth();
-  const [articles, setArticles] = useState([]);
-  const [selectedArticle, setSelectedArticle] = useState(null);
-  const [formData, setFormData] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
   const { myArticlesPromise, deleteArticle } = useApplicationApi();
 
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [selectedArticle, setSelectedArticle] = useState(null);
+  const [formData, setFormData] = useState(null);
+
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [tempSearch, setTempSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Fetch articles on mount and when user.uid changes
   useEffect(() => {
-    if (user?.uid) {
-      myArticlesPromise(user.uid)
-        .then((data) => setArticles(data))
-        .catch((err) => console.error(err));
-    }
+    if (!user?.uid) return;
+
+    setLoading(true);
+    setError(null);
+
+    myArticlesPromise(user.uid)
+      .then((data) => {
+        // Defensive: ensure articles is always an array
+        if (Array.isArray(data)) setArticles(data);
+        else if (data?.articles && Array.isArray(data.articles))
+          setArticles(data.articles);
+        else setArticles([]);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch my articles", err);
+        setError("Failed to load articles.");
+        setArticles([]);
+      })
+      .finally(() => setLoading(false));
   }, [user, myArticlesPromise]);
+
+  // Extract unique categories for filter
+  const categories = useMemo(() => {
+    if (!Array.isArray(articles)) return ["All"];
+    return ["All", ...new Set(articles.map((a) => a.category).filter(Boolean))];
+  }, [articles]);
+
+  // Filter articles by category and search term
+  const filteredArticles = useMemo(() => {
+    if (!Array.isArray(articles)) return [];
+    let filtered = articles;
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter((a) => a.category === selectedCategory);
+    }
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter((a) =>
+        a.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    return filtered;
+  }, [articles, selectedCategory, searchTerm]);
+
+  const onSearchClick = () => {
+    setSearchTerm(tempSearch.trim());
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -38,7 +96,7 @@ const MyArticles = () => {
       if (result.isConfirmed) {
         try {
           await deleteArticle(id);
-          setArticles(articles.filter((article) => article._id !== id));
+          setArticles((prev) => prev.filter((article) => article._id !== id));
           Swal.fire({
             icon: "success",
             title: "Article deleted successfully!",
@@ -60,7 +118,7 @@ const MyArticles = () => {
     setFormData({
       title: article.title,
       category: article.category,
-      tags: article.tags.join(", "),
+      tags: Array.isArray(article.tags) ? article.tags.join(", ") : "",
       article_img: article.article_img,
       content: article.content,
     });
@@ -74,29 +132,6 @@ const MyArticles = () => {
       }
     }
   }, [selectedArticle]);
-
-  // Extract unique categories
-  const categories = useMemo(() => {
-    return ["All", ...new Set(articles.map((a) => a.category))];
-  }, [articles]);
-
-  // Filter articles by category and search term (title)
-  const filteredArticles = useMemo(() => {
-    let filtered = articles;
-    if (selectedCategory !== "All") {
-      filtered = filtered.filter((a) => a.category === selectedCategory);
-    }
-    if (searchTerm.trim() !== "") {
-      filtered = filtered.filter((a) =>
-        a.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    return filtered;
-  }, [articles, selectedCategory, searchTerm]);
-
-  // To handle search button click
-  const [tempSearch, setTempSearch] = useState("");
-  const onSearchClick = () => setSearchTerm(tempSearch);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -149,7 +184,29 @@ const MyArticles = () => {
         </div>
       </div>
 
-      {filteredArticles.length === 0 ? (
+      {/* Articles Table or Loading/Error */}
+      {loading ? (
+        <div className="overflow-x-auto rounded-lg shadow-lg border border-base-300">
+          <table className="table table-zebra w-full min-w-[700px]">
+            <thead className="bg-base-200 sticky top-0 shadow-md z-10">
+              <tr>
+                <th className="whitespace-nowrap">Title</th>
+                <th className="whitespace-nowrap">Category</th>
+                <th className="whitespace-nowrap">Date</th>
+                <th className="whitespace-nowrap">Likes</th>
+                <th className="whitespace-nowrap text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 6 }).map((_, i) => (
+                <ShimmerRow key={i} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : error ? (
+        <p className="text-center text-error font-semibold mt-12">{error}</p>
+      ) : filteredArticles.length === 0 ? (
         <p className="text-center text-base-content/70 mt-12">
           No articles found.
         </p>
