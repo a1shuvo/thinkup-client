@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaLightbulb, FaRocket, FaUsers } from "react-icons/fa";
 import { Link } from "react-router";
+import usePageTitle from "../hooks/usePageTitle";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -12,6 +13,7 @@ const fadeUp = {
 };
 
 const About = () => {
+  usePageTitle("About Us");
   return (
     <div className="min-h-screen bg-base-100 px-4 py-10">
       <div className="max-w-7xl mx-auto">
@@ -23,7 +25,9 @@ const About = () => {
           custom={0}
           className="text-center space-y-6"
         >
-          <h1 className="text-5xl font-bold text-primary">About ThinkUP</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-primary">
+            About ThinkUp
+          </h1>
           <p className="text-lg text-base-content/80 max-w-3xl mx-auto">
             Empowering minds through shared knowledge. Learn. Grow. Think Up!
           </p>
@@ -38,7 +42,7 @@ const About = () => {
           className="mt-12 text-center max-w-4xl mx-auto space-y-4"
         >
           <p className="text-lg leading-relaxed">
-            <strong>ThinkUP</strong> is your platform to contribute your
+            <strong>ThinkUp</strong> is your platform to contribute your
             expertise and discover valuable insights across{" "}
             <span className="font-semibold">
               Technology, Science, Arts, and more
@@ -107,7 +111,7 @@ const About = () => {
             already an expert, your journey matters.
           </p>
           <Link to="/auth/register">
-            <button className="btn gap-2">
+            <button className="btn btn-outline  gap-2">
               <FaUsers />
               Join the Community
             </button>

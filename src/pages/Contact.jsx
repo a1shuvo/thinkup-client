@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import usePageTitle from "../hooks/usePageTitle";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -11,6 +12,7 @@ const fadeUp = {
 };
 
 const Contact = () => {
+  usePageTitle("Contact Us");
   return (
     <div className="min-h-screen px-4 py-10">
       <div className="max-w-7xl mx-auto">
@@ -22,9 +24,9 @@ const Contact = () => {
           custom={0}
           className="text-center space-y-4"
         >
-          <h1 className="text-5xl font-bold text-primary">Contact Us</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-primary">Contact Us</h1>
           <p className="text-lg text-base-content/80 max-w-3xl mx-auto">
-            Have questions or suggestions? We’d love to hear from you. Let’s
+            Have questions or suggestions? We'd love to hear from you. Let's
             connect and make ThinkUP even better together!
           </p>
         </motion.header>

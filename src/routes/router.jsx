@@ -15,6 +15,7 @@ import Home from "../pages/Home";
 import MyArticles from "../pages/MyArticles";
 import NotFound from "../pages/NotFound";
 import PostArticle from "../pages/PostArticle";
+import Terms from "../pages/Terms";
 import { articlesLoader } from "./articlesLoader";
 
 const router = createBrowserRouter([
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
         path: "/contact",
         HydrateFallback: Loading,
         Component: Contact,
+      },
+      {
+        path: "/terms",
+        HydrateFallback: Loading,
+        Component: Terms,
       },
       {
         path: "/article/:id",
