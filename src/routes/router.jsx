@@ -10,6 +10,7 @@ import ArticleDetails from "../pages/ArticleDetails";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
+import Contact from "../pages/Contact";
 import Home from "../pages/Home";
 import MyArticles from "../pages/MyArticles";
 import NotFound from "../pages/NotFound";
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
         path: "/about",
         HydrateFallback: Loading,
         Component: About,
+      },
+      {
+        path: "/contact",
+        HydrateFallback: Loading,
+        Component: Contact,
       },
       {
         path: "/article/:id",
