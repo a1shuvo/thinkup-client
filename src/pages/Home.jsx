@@ -6,16 +6,16 @@ import TopContributors from "../components/TopContributors";
 import usePageTitle from "../hooks/usePageTitle";
 
 const Home = () => {
-    usePageTitle("Home");
-    return (
-        <div>
-            <HeroBanner></HeroBanner>
-            <FeaturedArticles></FeaturedArticles>
-            <CategoriesList></CategoriesList>
-            <TopContributors></TopContributors>
-            <CommunityCTA></CommunityCTA>
-        </div>
-    );
+  usePageTitle("Home");
+  return (
+    <div className="text-base-content">
+      <HeroBanner></HeroBanner>
+      <FeaturedArticles></FeaturedArticles>
+      <CategoriesList></CategoriesList>
+      <TopContributors></TopContributors>
+      <CommunityCTA></CommunityCTA>
+    </div>
+  );
 };
 
 export default Home;

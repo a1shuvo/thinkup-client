@@ -4,6 +4,7 @@ import Loading from "../components/Loading";
 import PrivateRoute from "../contexts/PrivateRoute";
 import AuthLayout from "../layouts/AuthLayout";
 import HomeLayout from "../layouts/HomeLayout";
+import About from "../pages/About";
 import AllArticles from "../pages/AllArticles";
 import ArticleDetails from "../pages/ArticleDetails";
 import ForgotPassword from "../pages/Auth/ForgotPassword";
@@ -16,78 +17,81 @@ import PostArticle from "../pages/PostArticle";
 import { articlesLoader } from "./articlesLoader";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        Component: HomeLayout,
-        children: [
-            {
-                index: true,
-                Component: Home,
-            },
-            {
-                path: "/articles",
-                loader: articlesLoader,
-                HydrateFallback: Loading,
-                Component: AllArticles,
-            },
-            {
-                path: "/article/:id",
-                Component: ArticleDetails,
-                HydrateFallback: Loading,
-                loader: async ({ params }) => {
-                    const res = await axios(
-                        `${import.meta.env.VITE_BASE_API_URL}/article/${
-                            params.id
-                        }`
-                    );
-                    return res.data;
-                },
-                errorElement: <NotFound></NotFound>,
-            },
-            {
-                path: "/post-article",
-                element: (
-                    <PrivateRoute>
-                        <PostArticle></PostArticle>
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/my-articles",
-                element: (
-                    <PrivateRoute>
-                        <MyArticles></MyArticles>
-                    </PrivateRoute>
-                ),
-            },
-        ],
-    },
-    {
-        path: "/auth",
-        Component: AuthLayout,
-        children: [
-            {
-                index: true,
-                Component: Login,
-            },
-            {
-                path: "/auth/login",
-                Component: Login,
-            },
-            {
-                path: "/auth/register",
-                Component: Register,
-            },
-            {
-                path: "/auth/forgot-password",
-                Component: ForgotPassword,
-            },
-        ],
-    },
-    {
-        path: "/*",
-        Component: NotFound,
-    },
+  {
+    path: "/",
+    Component: HomeLayout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/articles",
+        loader: articlesLoader,
+        HydrateFallback: Loading,
+        Component: AllArticles,
+      },
+      {
+        path: "/about",
+        HydrateFallback: Loading,
+        Component: About,
+      },
+      {
+        path: "/article/:id",
+        Component: ArticleDetails,
+        HydrateFallback: Loading,
+        loader: async ({ params }) => {
+          const res = await axios(
+            `${import.meta.env.VITE_BASE_API_URL}/article/${params.id}`
+          );
+          return res.data;
+        },
+        errorElement: <NotFound></NotFound>,
+      },
+      {
+        path: "/post-article",
+        element: (
+          <PrivateRoute>
+            <PostArticle></PostArticle>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-articles",
+        element: (
+          <PrivateRoute>
+            <MyArticles></MyArticles>
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        index: true,
+        Component: Login,
+      },
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+      {
+        path: "/auth/register",
+        Component: Register,
+      },
+      {
+        path: "/auth/forgot-password",
+        Component: ForgotPassword,
+      },
+    ],
+  },
+  {
+    path: "/*",
+    Component: NotFound,
+  },
 ]);
 
 export default router;
